@@ -1,16 +1,16 @@
 name: Verify
 
-on: push
+on: pull_request
 
 jobs:
   static_checks:
     name: Static Checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: bash formatting
-        run: docker run -v "$PWD":/mnt -w /mnt mvdan/shfmt -ci -i 2 -l -d -- *.sh
+        run: docker run -v "$PWD":/mnt -w /mnt mvdan/shfmt -- -ci -i 2 -l -d -- *.sh
 
       - name: shellcheck
         run: docker run -v "$PWD":/mnt -w /mnt koalaman/shellcheck -- *.sh test/*.bats
@@ -22,7 +22,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup BATS
         uses: mig4/setup-bats@v1
@@ -39,12 +39,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: ./
+      - uses: .
         with:
           command: greet
           who: world
 
-      - uses: ./
+      - uses: .
         id: error_step
         continue-on-error: true
         with:
