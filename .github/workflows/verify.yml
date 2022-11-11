@@ -1,3 +1,8 @@
+# GitHub Actions workflow
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/contexts-and-expression-syntax-for-github-actions
+
 name: Verify
 
 on: pull_request
@@ -10,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: bash formatting
-        run: docker run -v "$PWD":/mnt -w /mnt mvdan/shfmt -- -ci -i 2 -l -d -- *.sh
+        run: docker run -v "$PWD":/mnt -w /mnt mvdan/shfmt -ci -i 2 -l -d -- *.sh
 
       - name: shellcheck
         run: docker run -v "$PWD":/mnt -w /mnt koalaman/shellcheck -- *.sh test/*.bats
@@ -39,12 +44,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: .
+      - uses: ./
         with:
           command: greet
           who: world
 
-      - uses: .
+      - uses: ./
         id: error_step
         continue-on-error: true
         with:

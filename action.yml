@@ -1,3 +1,6 @@
+# GitHub Action
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions
+
 name: Bash Action
 description: A sample GitHub Action written in Bash
 
